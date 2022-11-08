@@ -1,4 +1,4 @@
-import _config from './config.json';
+import * as _config from './config.json';
 import { IConfig } from './config.model';
 
 const config = _config as IConfig;
