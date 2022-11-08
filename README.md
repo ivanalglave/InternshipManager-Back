@@ -24,13 +24,15 @@
 
 ## Description
 
-IntershipManager - The whole lifecycle of internship agreements in one app !
+**IntershipManager** - The whole lifecycle of internship agreements in one app !
 
 ## Installation
 
 ```bash
 $ npm install
 ```
+
+In `/src/config/` create a file called `config.json` and copy the content of `config.template.json` in it. Change the values such as the server port to match your needs.
 
 ## Running the app
 
