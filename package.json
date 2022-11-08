@@ -1,0 +1,20 @@
+{
+  "name": "internshipmanager-back",
+  "version": "1.0.0",
+  "description": "Back end service for the internship manager project",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-p:hihubbIe/InternshipManager-Back.git"
+  },
+  "keywords": [
+    "nestjs",
+    "nodejs",
+    "node"
+  ],
+  "author": "Groupe M2 IL",
+  "license": "SEE LICENSE IN LICENSE"
+}
