@@ -52,7 +52,12 @@ export class HttpInterceptor implements NestInterceptor {
       tap({
         next: (_) =>
           this._logger.log(!!_ ? JSON.stringify(_) : 'NO CONTENT', logCtx),
-        error: (_) => this._logger.error(_.message, JSON.stringify(_), logCtx),
+        error: (_) =>
+          this._logger.error(
+            _?.message ?? 'unspecified error',
+            JSON.stringify(_),
+            logCtx,
+          ),
       }),
     );
   };
