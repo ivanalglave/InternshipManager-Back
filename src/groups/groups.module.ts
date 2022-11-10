@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GroupsDao } from './dao/groups.dao';
 import { GroupsController } from './groups.controller';
@@ -10,6 +10,6 @@ import { Group, GroupSchema } from './schemas/group.schema';
     MongooseModule.forFeature([{ name: Group.name, schema: GroupSchema }]),
   ],
   controllers: [GroupsController],
-  providers: [GroupsService, GroupsDao],
+  providers: [GroupsService, GroupsDao, Logger],
 })
 export class GroupsModule {}
