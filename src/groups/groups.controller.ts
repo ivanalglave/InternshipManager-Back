@@ -18,7 +18,7 @@ export class GroupsController {
   constructor(private readonly _groupsService: GroupsService) {}
 
   @Get()
-  findAll(): Observable<GroupEntity[] | void> {
+  findAll(): Promise<GroupEntity[] | void> {
     return this._groupsService.findAll();
   }
 

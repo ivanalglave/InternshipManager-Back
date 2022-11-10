@@ -13,8 +13,13 @@ export class GroupsDao {
     private readonly _groupModel: Model<Group>,
   ) {}
 
-  find = (): Observable<Group[]> =>
-    from(this._groupModel.find({})).pipe(map((groups) => [].concat(groups)));
+  find = (): Promise<Group[]> =>
+    new Promise((resolve, reject) => {
+      this._groupModel.find({}, {}, {}, (err, value) => {
+        if (err) reject(err.message);
+        resolve(value);
+      });
+    });
 
   findById = (id: string): Observable<Group | void> =>
     from(this._groupModel.findById(id));

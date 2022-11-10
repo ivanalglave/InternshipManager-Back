@@ -23,12 +23,7 @@ import { GroupEntity } from './entities/group.entity';
 export class GroupsService {
   constructor(private readonly _groupsDao: GroupsDao) {}
 
-  findAll = (): Observable<GroupEntity[] | void> =>
-    this._groupsDao.find().pipe(
-      filter(Boolean),
-      map((groups) => (groups || []).map((group) => new GroupEntity(group))),
-      defaultIfEmpty(undefined),
-    );
+  findAll = (): Promise<GroupEntity[] | void> => this._groupsDao.find();
 
   findOne = (id: string): Observable<GroupEntity> =>
     this._groupsDao.findById(id).pipe(
