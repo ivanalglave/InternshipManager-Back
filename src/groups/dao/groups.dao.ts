@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { from, map, Observable } from 'rxjs';
 import { CreateGroupDto } from '../dto/create-group.dto';
 import { UpdateGroupDto } from '../dto/update-group.dto';
 import { Group } from '../schemas/group.schema';
@@ -21,23 +20,46 @@ export class GroupsDao {
       });
     });
 
-  findById = (id: string): Observable<Group | void> =>
-    from(this._groupModel.findById(id));
+  findById = (id: string): Promise<Group | void> =>
+    new Promise((resolve, reject) => {
+      this._groupModel.findOne({ id: id }, {}, {}, (err, value) => {
+        if (err) reject(err.message);
+        resolve(value);
+      });
+    });
 
-  save = (group: CreateGroupDto): Observable<Group> =>
-    from(new this._groupModel(group).save());
+  save = (group: CreateGroupDto): Promise<Group> =>
+    new Promise((resolve, reject) => {
+      new this._groupModel(group).save((err, value) => {
+        if (err) reject(err.message);
+        resolve(value);
+      });
+    });
 
   findByIdAndUpdate = (
     id: string,
     group: UpdateGroupDto,
-  ): Observable<Group | void> =>
-    from(
-      this._groupModel.findByIdAndUpdate(id, group, {
-        new: true,
-        runValidators: true,
-      }),
-    );
+  ): Promise<Group | void> =>
+    new Promise((resolve, reject) => {
+      this._groupModel.updateOne(
+        { id: id },
+        group,
+        {
+          new: true,
+          runValidators: true,
+        },
+        (err, value) => {
+          if (err) reject(err.message);
+          resolve(value);
+        },
+      );
+    });
 
-  findByIdAndRemove = (id: string): Observable<Group | void> =>
-    from(this._groupModel.findByIdAndRemove(id));
+  findByIdAndRemove = (id: string): Promise<Group | void> =>
+    new Promise((resolve, reject) => {
+      this._groupModel.deleteOne({ id: id }, {}, (err) => {
+        if (err) reject(err.message);
+        resolve();
+      });
+    });
 }

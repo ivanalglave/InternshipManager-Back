@@ -1,4 +1,4 @@
-import { IsBoolean, IsString, IsNotEmpty, IsMongoId } from 'class-validator';
+import { IsBoolean, IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateGroupDto {
   @IsString()
@@ -8,7 +8,7 @@ export class CreateGroupDto {
   @IsBoolean()
   final: boolean;
 
-  @IsMongoId()
+  @IsString()
   @IsNotEmpty()
   parent: any;
 }

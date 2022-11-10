@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
-import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type GroupDocument = Group & Document;
 
@@ -34,28 +34,28 @@ export class Group {
   final: boolean;
 
   @Prop({
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [String],
     required: true,
     trim: true,
   })
   responsibles: string[];
 
   @Prop({
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [String],
     required: true,
     trim: true,
   })
   secretaries: string[];
 
   @Prop({
-    type: [mongoose.Schema.Types.ObjectId],
+    type: [String],
     required: true,
     trim: true,
   })
   students: string[];
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     trim: true,
   })

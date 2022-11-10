@@ -1,14 +1,15 @@
-import { IsBoolean, IsString, IsNotEmpty, IsMongoId } from 'class-validator';
+import { IsArray, IsOptional } from 'class-validator';
 
 export class UpdateGroupDto {
-  @IsString()
-  @IsNotEmpty()
-  id: string;
+  @IsArray()
+  @IsOptional()
+  responsibles: string[];
 
-  @IsBoolean()
-  final: boolean;
+  @IsArray()
+  @IsOptional()
+  secretaries: string[];
 
-  @IsMongoId()
-  @IsNotEmpty()
-  parent: string;
+  @IsArray()
+  @IsOptional()
+  students: string[];
 }

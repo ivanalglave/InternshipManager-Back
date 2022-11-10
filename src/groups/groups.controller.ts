@@ -26,12 +26,12 @@ export class GroupsController {
   }
 
   @Get(':id')
-  findOne(@Param() params: { id: string }): Observable<GroupEntity> {
+  findOne(@Param() params: { id: string }): Promise<GroupEntity | void> {
     return this._groupsService.findOne(params.id);
   }
 
   @Post()
-  create(@Body() createGroupDto: CreateGroupDto): Observable<GroupEntity> {
+  create(@Body() createGroupDto: CreateGroupDto): Promise<GroupEntity> {
     return this._groupsService.create(createGroupDto);
   }
 
@@ -39,12 +39,12 @@ export class GroupsController {
   update(
     @Param() params: { id: string },
     @Body() updateGroupDto: UpdateGroupDto,
-  ): Observable<GroupEntity> {
+  ): Promise<GroupEntity | void> {
     return this._groupsService.update(params.id, updateGroupDto);
   }
 
   @Delete(':id')
-  delete(@Param() params: { id: string }): Observable<void> {
+  delete(@Param() params: { id: string }): Promise<GroupEntity | void> {
     return this._groupsService.delete(params.id);
   }
 }
