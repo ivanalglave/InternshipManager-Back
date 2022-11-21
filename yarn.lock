@@ -2455,7 +2455,7 @@
 "class-transformer@*":
   "version" "0.5.1"
 
-"class-validator@*":
+"class-validator@*", "class-validator@^0.13.2":
   "version" "0.13.2"
   dependencies:
     "libphonenumber-js" "^1.9.43"
