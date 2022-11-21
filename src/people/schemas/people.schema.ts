@@ -19,13 +19,6 @@ export class People {
       })
       _id: any;
     
-      @Prop({
-        type: String,
-        required: true,
-        trim: true,
-      })
-      id: string;
-
     @Prop({
         type: String,
         required: true,
@@ -49,7 +42,6 @@ export class People {
 
     @Prop({
         type: String,
-        required: true,
         trim: true,
         minlength: 2,
     }) passwordHash: string;

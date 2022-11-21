@@ -1,9 +1,6 @@
-import { IsBoolean, IsString, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreatePeopleDto {
-  @IsString()
-  @IsNotEmpty()
-  id: string;
 
   @IsString()
   @IsNotEmpty()
@@ -13,13 +10,12 @@ export class CreatePeopleDto {
   @IsNotEmpty()
   lastname: string;
 
-  @IsString()
-  @IsNotEmpty()
-  email: string;
+  @IsOptional()
+  passwordHash: string;
 
   @IsString()
   @IsNotEmpty()
-  passwordHash: string;
+  email: string;
   
   @IsNotEmpty()
   role: number;
