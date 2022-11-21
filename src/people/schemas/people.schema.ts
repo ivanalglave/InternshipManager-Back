@@ -55,4 +55,4 @@ export class People {
 
 export const PeopleSchema = SchemaFactory.createForClass(People);
 
-PeopleSchema.index({ id: 1 }, { unique: true });
+PeopleSchema.index({});
