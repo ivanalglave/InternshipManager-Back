@@ -4,8 +4,6 @@ import { mongodb } from './config';
 import { PeopleModule } from './people/people.module';
 
 @Module({
-  imports: [MongooseModule.forRoot(mongodb.uri), AppModule, PeopleModule],
-  controllers: [],
-  providers: [],
+  imports: [PeopleModule, MongooseModule.forRoot(mongodb.uri)],
 })
 export class AppModule {}

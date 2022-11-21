@@ -1,23 +1,30 @@
-import {
-    Prop, raw, Schema, SchemaFactory,
-} from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+
+export type PeopleDocument = People & Document;
 
 @Schema({
-    toJSON: {
-        virtuals: true,
-        transform: (dpc: any, ret: any) => { 
-            delete ret._id;
-        },
+  toJSON: {
+    virtuals: true,
+    transform: (doc: any, ret: any) => {
+      delete ret._id;
     },
-    versionKey: false,
-
+  },
 })
 export class People {
     @Prop({
         type: mongoose.Schema.Types.ObjectId,
         auto: true,
-    }) _id: any;
+      })
+      _id: any;
+    
+      @Prop({
+        type: String,
+        required: true,
+        trim: true,
+      })
+      id: string;
 
     @Prop({
         type: String,
@@ -50,15 +57,10 @@ export class People {
     @Prop({
         type: Number,
         required: true,
-    }) role: string;
-
-    @Prop({
-        type: [String],
-        required: true,
-    }) groups: string[];
+    }) role: number;
 
 }
 
 export const PeopleSchema = SchemaFactory.createForClass(People);
 
-PeopleSchema.index({ name: 1 }, { unique: true });
+PeopleSchema.index({ id: 1 }, { unique: true });

@@ -1,29 +1,50 @@
 import {
-    Controller,
-    Get,
-    Post,
-    Put,
-    Delete,
-    Param,
-    Body,
-    UseInterceptors,
-  } from '@nestjs/common';
-  import { Observable } from 'rxjs';
-//    import { HttpInterceptor } from '../interceptors/http.interceptor';
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  UseInterceptors,
+} from '@nestjs/common';
+import { CreatePeopleDto } from './dto/create-people.dto';
+import { UpdatePeopleDto } from './dto/update-people.dto';
+import { HttpInterceptor } from '../interceptors/http.interceptor';
 //   import { CreatePeopleDto } from './dto/create-people.dto';
 //   import { UpdatePeopleDto } from './dto/update-people.dto';
-  import { PeopleEntity } from './entities/people.entity';
-  import { PeopleService } from './people.service';
-  
+import { PeopleEntity } from './entities/people.entity';
+import { PeopleService } from './people.service';
 
-  @Controller('people')
-//   @UseInterceptors(HttpInterceptor)
-  export class PeopleController {
-    constructor(private readonly _peopleService: PeopleService) {}
-  
-    @Get()
-    findAll(): Observable<PeopleEntity[] | void> {
-      return this._peopleService.findAll();
-    }
-  
+@Controller('people')
+@UseInterceptors(HttpInterceptor)
+export class PeopleController {
+  constructor(private readonly _peopleService: PeopleService) {}
+
+  @Get()
+  findAll(): Promise<PeopleEntity[] | void> {
+    return this._peopleService.findAll();
   }
+  @Get(':id')
+  findOne(@Param() params: { id: string }): Promise<PeopleEntity | void> {
+    return this._peopleService.findOne(params.id);
+  }
+
+  @Post()
+  create(@Body() createPeopleDto: CreatePeopleDto): Promise<PeopleEntity> {
+    return this._peopleService.create(createPeopleDto);
+  }
+
+  @Put(':id')
+  update(
+    @Param() params: { id: string },
+    @Body() updateGroupDto: UpdatePeopleDto,
+  ): Promise<PeopleEntity | void> {
+    return this._peopleService.update(params.id, updateGroupDto);
+  }
+
+  @Delete(':id')
+  delete(@Param() params: { id: string }): Promise<PeopleEntity | void> {
+    return this._peopleService.delete(params.id);
+  }
+}

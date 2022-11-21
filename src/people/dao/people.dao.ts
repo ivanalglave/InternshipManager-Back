@@ -1,19 +1,69 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { from, map, Observable } from 'rxjs';
-/*import { CreatePeopleDto } from '../dto/create-people.dto';
-import { UpdatePeopleDto } from '../dto/update-people.dto';*/
+import { CreatePeopleDto } from '../dto/create-people.dto';
+import { UpdatePeopleDto } from '../dto/update-people.dto';
 import { People } from '../schemas/people.schema';
 
 @Injectable()
 export class PeopleDao {
   constructor(
     @InjectModel(People.name)
-    private readonly _groupModel: Model<People>,
+    private readonly _peopleModel: Model<People>,
   ) {}
 
-  find = (): Observable<People[]> =>
-    from(this._groupModel.find({})).pipe(map((people) => [].concat(people)));
+  find = (): Promise<People[]> =>
+    new Promise((resolve, reject) => {
+      this._peopleModel.find({}, {}, {}, (err, value) => {
+        if (err) reject(err.message);
+        if (!value) reject('No values');
+        resolve(value);
+      });
+    });
 
+  findById = (id: string): Promise<People | void> =>
+    new Promise((resolve, reject) => {
+      this._peopleModel.findOne({ id: id }, {}, {}, (err, value) => {
+        if (err) reject(err.message);
+        if (!value) reject(new NotFoundException());
+        resolve(value);
+      });
+    });
+
+    save = (people: CreatePeopleDto): Promise<People> =>
+    new Promise((resolve, reject) => {
+      new this._peopleModel(people).save((err, value) => {
+        if (err) reject(err.message);
+        if (!value) reject(new InternalServerErrorException());
+        resolve(value);
+      });
+    });
+
+  findByIdAndUpdate = (
+    id: string,
+    people: UpdatePeopleDto,
+  ): Promise<People | void> =>
+    new Promise((resolve, reject) => {
+      this._peopleModel.updateOne(
+        { id: id },
+        people,
+        {
+          new: true,
+          runValidators: true,
+        },
+        (err, value) => {
+          if (err) reject(err.message);
+          if (value.matchedCount === 0) reject(new NotFoundException());
+          resolve(value);
+        },
+      );
+    });
+
+  findByIdAndRemove = (id: string): Promise<People | void> =>
+    new Promise((resolve, reject) => {
+      this._peopleModel.deleteOne({ id: id }, {}, (err) => {
+        if (err) reject(err.message);
+        resolve();
+      });
+    });
 }
