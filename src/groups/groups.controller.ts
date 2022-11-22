@@ -8,7 +8,6 @@ import {
   Body,
   UseInterceptors,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { HttpInterceptor } from '../interceptors/http.interceptor';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { UpdateGroupDto } from './dto/update-group.dto';

@@ -2,7 +2,7 @@ import { Group } from '../schemas/group.schema';
 
 export class GroupEntity {
   _id: string;
-  id: string;
+  name: string;
   final: boolean;
   responsibles: string[];
   secretaries: string[];

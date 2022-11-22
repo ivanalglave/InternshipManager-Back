@@ -1,6 +1,5 @@
 export type Group = {
   _id: any;
-  id: string;
   final: boolean;
   responsibles: string[];
   secretaries: string[];
