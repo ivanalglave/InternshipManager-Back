@@ -7,6 +7,16 @@ This is the **REST API** connecting to the InternshipManager front end applicati
 
 Built using [node](https://nodejs.org/en/)@v16.10.0 !
 
+### Setting up NestJS
+
+If you don't already have NestJS as a global dependency, execute the following :
+
+```bash
+$ npm install -g @nestjs/cli
+```
+
+You may need to restart your console to be able to use the NestJS commands.
+
 ### Setting up dependencies
 
 Use npm to download all the dependencies :
