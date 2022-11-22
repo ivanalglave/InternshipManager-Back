@@ -26,13 +26,33 @@
 
 **IntershipManager** - The whole lifecycle of internship agreements in one app !
 
+This is the **REST API** connecting to the InternshipManager front end application to manage **CRUD** operations.
+
 ## Installation
 
 ```bash
 $ npm install
 ```
 
-In `/src/config/` create a file called `config.json` and copy the content of `config.template.json` in it. Change the values such as the server port to match your needs.
+In `/src/config/`, make a copy of the file `config.template.json` and rename it to `config.json`. 
+Set the following field :
+```json
+"server": {
+  "port": 3001
+},
+```
+You may replace `3001` by any port you wish to run the application on.
+
+### Initiating the database
+
+This server uses [Mongodb](https://www.mongodb.com/) for persistent data storage. To initiate the database, you must have an instance of mongo running. You may use the dockerfile located in `docker/` at the root of the project and run the command `docker-compose up -d` to create and run a mongo instance as a background task.
+In the `src/config/config.json`, set the following field :
+```json
+"mongodb": {
+  "uri": "mongodb://localhost:27017/internship-manager"
+}
+```
+In the event you wish to run mongo on another port or use another collection, make sure to update the **uri** in the config file.
 
 ## Running the app
 
