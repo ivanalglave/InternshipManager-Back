@@ -1,60 +1,56 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-**IntershipManager** - The whole lifecycle of internship agreements in one app !
+# IntershipManager
+The whole lifecycle of internship agreements in one app !
 
 This is the **REST API** connecting to the InternshipManager front end application to manage **CRUD** operations.
 
 ## Installation
 
+Built using [node](https://nodejs.org/en/)@v16.10.0 !
+
+### Setting up dependencies
+
+Use npm to download all the dependencies :
+
 ```bash
 $ npm install
 ```
 
+### Setting up your config file
+
 In `/src/config/`, make a copy of the file `config.template.json` and rename it to `config.json`. 
 Set the following field :
+
 ```json
 "server": {
   "port": 3001
 },
 ```
-You may replace `3001` by any port you wish to run the application on.
 
-### Initiating the database
+This is the port the server will run on.
+You may replace `3001` by any port you wish to run the server on.
 
-This server uses [Mongodb](https://www.mongodb.com/) for persistent data storage. To initiate the database, you must have an instance of mongo running. You may use the dockerfile located in `docker/` at the root of the project and run the command `docker-compose up -d` to create and run a mongo instance as a background task.
+### Setting up the database
+
+This server uses [Mongodb](https://www.mongodb.com/) for persistent data storage. To initiate the database, you must have an instance of mongo running. You may use the dockerfile located in `docker/` at the root of the project and run the command `docker-compose up -d` to create and run a mongo instance as a background task (get [Docker](https://www.docker.com/)).
 In the `src/config/config.json`, set the following field :
+
 ```json
 "mongodb": {
   "uri": "mongodb://localhost:27017/internship-manager"
 }
 ```
+
 In the event you wish to run mongo on another port or use another collection, make sure to update the **uri** in the config file.
 
 ## Running the app
+
+For development purposes, we use :
+
+```bash
+$ nest start --watch
+```
+
+But you may use, according to what you need :
 
 ```bash
 # development
@@ -67,16 +63,4 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Check the [license](LICENSE).
