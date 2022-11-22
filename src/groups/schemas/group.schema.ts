@@ -24,7 +24,7 @@ export class Group {
     required: true,
     trim: true,
   })
-  id: string;
+  name: string;
 
   @Prop({
     type: Boolean,
@@ -63,5 +63,3 @@ export class Group {
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);
-
-GroupSchema.index({ id: 1 }, { unique: true });

@@ -27,7 +27,7 @@ export class GroupsDao {
 
   findById = (id: string): Promise<Group | void> =>
     new Promise((resolve, reject) => {
-      this._groupModel.findOne({ id: id }, {}, {}, (err, value) => {
+      this._groupModel.findById(id, {}, {}, (err, value) => {
         if (err) reject(err.message);
         if (!value) reject(new NotFoundException());
         resolve(value);
@@ -48,8 +48,8 @@ export class GroupsDao {
     group: UpdateGroupDto,
   ): Promise<Group | void> =>
     new Promise((resolve, reject) => {
-      this._groupModel.updateOne(
-        { id: id },
+      this._groupModel.findByIdAndUpdate(
+        id,
         group,
         {
           new: true,
@@ -57,7 +57,6 @@ export class GroupsDao {
         },
         (err, value) => {
           if (err) reject(err.message);
-          if (value.matchedCount === 0) reject(new NotFoundException());
           resolve(value);
         },
       );
@@ -65,7 +64,7 @@ export class GroupsDao {
 
   findByIdAndRemove = (id: string): Promise<Group | void> =>
     new Promise((resolve, reject) => {
-      this._groupModel.deleteOne({ id: id }, {}, (err) => {
+      this._groupModel.findByIdAndDelete(id, {}, (err) => {
         if (err) reject(err.message);
         resolve();
       });

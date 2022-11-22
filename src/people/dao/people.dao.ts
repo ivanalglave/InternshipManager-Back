@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { randomInt } from 'crypto';
 import { Model } from 'mongoose';
@@ -31,9 +35,8 @@ export class PeopleDao {
       });
     });
 
-    save (people: CreatePeopleDto): Promise<People> {
-      var password = this.secret();
-      people.passwordHash = password;
+  save = (people: CreatePeopleDto): Promise<People> => {
+    people.passwordHash = this.secret();
     return new Promise((resolve, reject) => {
       new this._peopleModel(people).save((err, value) => {
         if (err) reject(err.message);
@@ -41,7 +44,7 @@ export class PeopleDao {
         resolve(value);
       });
     });
-  }
+  };
 
   findByIdAndUpdate = (
     id: string,
@@ -71,20 +74,19 @@ export class PeopleDao {
       });
     });
 
-    secret = (length = 10) => {
-      const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      const lowerCase = "abcdefghijklmnopqrstuvwxyz";
-      const digits = "0123456789";
-      const minus = "-";
-      const underLine = "_";
-      const special = "!\"#$%&'*+,./:;=?@\\^`|~";
-      const brackets = "[]{}()<>";
-      const alphabet =
-        upperCase + lowerCase + digits + minus + underLine + special + brackets;
-      let secret = "";
-      for (let index = 0; index < length; index++)
-        secret += alphabet.charAt(randomInt(alphabet.length));
-      return secret;
-    };
-
+  secret = (length = 10) => {
+    const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+    const digits = '0123456789';
+    const minus = '-';
+    const underLine = '_';
+    const special = '!"#$%&\'*+,./:;=?@\\^`|~';
+    const brackets = '[]{}()<>';
+    const alphabet =
+      upperCase + lowerCase + digits + minus + underLine + special + brackets;
+    let secret = '';
+    for (let index = 0; index < length; index++)
+      secret += alphabet.charAt(randomInt(alphabet.length));
+    return secret;
+  };
 }
