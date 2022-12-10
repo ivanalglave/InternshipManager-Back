@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Student, StudentSchema } from './Student.schema';
+import { Student, StudentSchema } from './student.schema';
 import { Company, CompanySchema } from './company.schema';
 import { Affectation, AffectationSchema } from './affectation.schema';
 import { Compensation, CompensationSchema } from './compensation.schema';
