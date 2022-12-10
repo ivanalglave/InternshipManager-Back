@@ -1,7 +1,7 @@
 # IntershipManager
 The whole lifecycle of internship agreements in one app !
 
-This is the **REST API** connecting to the InternshipManager front end application to manage **CRUD** operations.
+This is the **REST API** connecting to the [InternshipManager front end web application](https://github.com/DenisDao57/gestion-front) to manage **CRUD** operations.
 
 ## Installation
 
