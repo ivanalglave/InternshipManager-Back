@@ -54,23 +54,16 @@ In the event you wish to run mongo on another port or use another collection, ma
 
 ## Running the app
 
-For development purposes, we use :
-
+To start the app in development mode, use :
 ```bash
-$ nest start --watch
+$ npm run start:dev
 ```
 
-But you may use, according to what you need :
-
+To start the app in production mode, use :
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
 $ npm run start:prod
 ```
+
+Any other command used to start might have *undefined behaviour* at runtime, as above commands may set environment variables required at runtime.
 
 Check the [license](LICENSE).
