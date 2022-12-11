@@ -8,7 +8,7 @@ import {
   Body,
   UseInterceptors,
 } from '@nestjs/common';
-import { BAD_TRACKING_STATE, CUSTOM } from 'src/shared/HttpError';
+import { BAD_TRACKING_STATE } from 'src/shared/HttpError';
 import * as InternshipStates from 'src/shared/InternshipState';
 import { HttpInterceptor } from '../interceptors/http.interceptor';
 import { CreateInternshipDto } from './dto/create-internship.dto';
@@ -52,7 +52,7 @@ export class InternshipsController {
     @Param() params: { studentId: string },
     @Body() body: { state: string; content: string },
   ) {
-    if (!InternshipStates.isAllowedState(body.state))
+    if (!InternshipStates.isStateValid(body.state))
       throw BAD_TRACKING_STATE(body.state);
     // Treat request and update tracking -> implement service + dao
   }

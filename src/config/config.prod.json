@@ -1,0 +1,9 @@
+{
+  "server": {
+    "uri": "localhost",
+    "port": 3001
+  },
+  "mongodb": {
+    "uri": "mongodb://localhost:27017/internship-manager"
+  }
+}

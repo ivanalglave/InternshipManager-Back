@@ -1,20 +1,27 @@
-export const STATE_1 = 'state-1';
-export const STATE_2 = 'state-2';
-export const STATE_3 = 'state-3';
-export const STATE_4 = 'state-4';
-export const STATE_5 = 'state-5';
-export const STATE_6 = 'state-6';
-export const STATE_7 = 'state-7';
+export const STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION =
+  'student-enters-internship-information';
+export const STATE_RESPONSIBLE_ACCEPTS_INTERNSHIP_INFORMATION =
+  'responsible-accepts-internship-information';
+export const STATE_SECRETARY_ESTABLISHES_INTERNSHIP_AGREEMENT =
+  'secretary-establishes-internship-agreement';
+export const STATE_STUDENT_SIGNS_INTERNSHIP_AGREEMENT =
+  'student-signs-internship-agreement';
+export const STATE_RESPONSIBLE_SIGNS_INTERNSHIP_AGREEMENT =
+  'responsible-signs-internship-agreement';
+export const STATE_COMPANY_SIGNS_INTERNSHIP_AGREEMENT =
+  'company-signs-internship-agreement';
+export const STATE_DEAN_SIGNS_INTERNSHIP_AGREEMENT =
+  'dean-signs-internship-agreement';
 
 export const STATES = [
-  STATE_1,
-  STATE_2,
-  STATE_3,
-  STATE_4,
-  STATE_5,
-  STATE_6,
-  STATE_7,
+  STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION,
+  STATE_RESPONSIBLE_ACCEPTS_INTERNSHIP_INFORMATION,
+  STATE_SECRETARY_ESTABLISHES_INTERNSHIP_AGREEMENT,
+  STATE_STUDENT_SIGNS_INTERNSHIP_AGREEMENT,
+  STATE_RESPONSIBLE_SIGNS_INTERNSHIP_AGREEMENT,
+  STATE_COMPANY_SIGNS_INTERNSHIP_AGREEMENT,
+  STATE_DEAN_SIGNS_INTERNSHIP_AGREEMENT,
 ];
 
-export const isAllowedState = (potentialState: string): boolean =>
+export const isStateValid = (potentialState: string): boolean =>
   STATES.includes(potentialState);
