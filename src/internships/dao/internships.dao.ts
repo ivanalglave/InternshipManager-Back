@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CONFLICT } from 'src/shared/HttpError';
+import { BAD_REQUEST, CONFLICT, INTERNAL } from 'src/shared/HttpError';
 import { STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION } from 'src/shared/InternshipState';
 import { CreateInternshipDto } from '../dto/create-internship.dto';
 import { InternshipDto } from '../dto/internship.dto';
@@ -58,6 +58,7 @@ export class InternshipDao {
   ): Promise<Internship | void> =>
     new Promise((resolve, reject) => {
       // Check if information modification is allowed -> current state is information input by student and updating is allowed
+      if (studentId !== internship.studentId) reject(BAD_REQUEST);
       const decoratedInternship = this.toInternshipDtoWithTracking(internship);
       this._internshipModel.findOneAndReplace(
         {
@@ -71,7 +72,8 @@ export class InternshipDao {
         },
         (err, value) => {
           if (err) reject(err.message);
-          resolve(value);
+          // if (typeof value !== typeof Internship) reject(INTERNAL);
+          resolve(value as Internship);
         },
       );
     });
@@ -90,7 +92,7 @@ export class InternshipDao {
     return {
       ...createInternshipDto,
       tracking: {
-        state: 'state-1',
+        state: STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION,
       },
     };
   };
