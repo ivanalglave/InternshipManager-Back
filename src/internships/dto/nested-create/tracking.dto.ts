@@ -3,9 +3,9 @@ import { IsString, IsNotEmpty } from 'class-validator';
 export class TrackingDto {
   @IsString()
   @IsNotEmpty()
-  status: string;
+  state: string;
 
   @IsString()
   @IsNotEmpty()
-  state: string;
+  status: string;
 }

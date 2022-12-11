@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InternshipDao } from './dao/internships.dao';
 import { CreateInternshipDto } from './dto/create-internship.dto';
-import { InternshipDto } from './dto/internship.dto';
 import { InternshipEntity } from './entities/internship.entity';
 
 @Injectable()
@@ -19,7 +18,7 @@ export class InternshipService {
 
   update = (
     studentId: string,
-    internship: InternshipDto,
+    internship: CreateInternshipDto,
   ): Promise<InternshipEntity | void> =>
     this._internshipsDao.findByStudentIdAndUpdate(studentId, internship);
 

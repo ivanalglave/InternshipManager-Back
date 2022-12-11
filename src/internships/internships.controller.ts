@@ -8,9 +8,10 @@ import {
   Body,
   UseInterceptors,
 } from '@nestjs/common';
+import { BAD_TRACKING_STATE, CUSTOM } from 'src/shared/HttpError';
+import * as InternshipStates from 'src/shared/InternshipState';
 import { HttpInterceptor } from '../interceptors/http.interceptor';
 import { CreateInternshipDto } from './dto/create-internship.dto';
-import { InternshipDto } from './dto/internship.dto';
 import { InternshipEntity } from './entities/internship.entity';
 import { InternshipService } from './internships.service';
 
@@ -41,9 +42,19 @@ export class InternshipsController {
   @Put(':studentId')
   update(
     @Param() params: { studentId: string },
-    @Body() internshipDto: InternshipDto,
+    @Body() internshipDto: CreateInternshipDto,
   ): Promise<InternshipEntity | void> {
     return this._groupsService.update(params.studentId, internshipDto);
+  }
+
+  @Put(':studentId/tracking')
+  updateState(
+    @Param() params: { studentId: string },
+    @Body() body: { state: string; content: string },
+  ) {
+    if (!InternshipStates.isAllowedState(body.state))
+      throw BAD_TRACKING_STATE(body.state);
+    // Treat request and update tracking -> implement service + dao
   }
 
   @Delete(':studentId')

@@ -1,6 +1,6 @@
 export class TrackingEntity {
-  status: string;
   state: string;
+  status: string;
 
   constructor(partial: Partial<TrackingEntity>) {
     Object.assign(this, partial);
