@@ -22,6 +22,17 @@ export class InternshipService {
   ): Promise<InternshipEntity | void> =>
     this._internshipsDao.findByStudentIdAndUpdate(studentId, internship);
 
+  updateTracking = (
+    studentId: string,
+    state: string,
+    content: string | boolean,
+  ): Promise<InternshipEntity | void> =>
+    this._internshipsDao.findByStudentIdAndUpdateTracking(
+      studentId,
+      state,
+      content,
+    );
+
   delete = (studentId: string): Promise<InternshipEntity | void> =>
     this._internshipsDao.findByStudentIdAndRemove(studentId);
 }

@@ -1,6 +1,7 @@
 import { IConfig } from './config.model';
 import { readFileSync } from 'fs';
 import * as path from 'path';
+import { exit } from 'process';
 
 // Store file local path in var for lisibility
 const CONFIG_DEV = 'config.json';
@@ -22,10 +23,11 @@ switch (process.env.NODE_ENV) {
     ) as IConfig;
     break;
   default:
-    // This shouldn't happen
-    console.log('\x1b[31mFATAL: Cannot load config.\x1b[0m');
-    config = null;
-    break;
+    // This happens when the environment isn't set
+    console.log(
+      '\x1b[31mFATAL: Cannot load config.\nInvalid application environment. Did you read the \x1b[4mREADME\x1b[0m\x1b[31m ?\x1b[0m',
+    );
+    exit(-1);
 }
 
 // Export config

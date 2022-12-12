@@ -18,25 +18,25 @@ import { InternshipService } from './internships.service';
 @Controller('internships')
 @UseInterceptors(HttpInterceptor)
 export class InternshipsController {
-  constructor(private readonly _groupsService: InternshipService) {}
+  constructor(private readonly _internshipsService: InternshipService) {}
 
   @Get()
   findAll(): Promise<InternshipEntity[] | void> {
-    return this._groupsService.findAll();
+    return this._internshipsService.findAll();
   }
 
   @Get(':studentId')
   findOne(
     @Param() params: { studentId: string },
   ): Promise<InternshipEntity | void> {
-    return this._groupsService.findOne(params.studentId);
+    return this._internshipsService.findOne(params.studentId);
   }
 
   @Post()
   create(
     @Body() internshipDto: CreateInternshipDto,
   ): Promise<InternshipEntity> {
-    return this._groupsService.create(internshipDto);
+    return this._internshipsService.create(internshipDto);
   }
 
   @Put(':studentId')
@@ -44,23 +44,28 @@ export class InternshipsController {
     @Param() params: { studentId: string },
     @Body() internshipDto: CreateInternshipDto,
   ): Promise<InternshipEntity | void> {
-    return this._groupsService.update(params.studentId, internshipDto);
+    return this._internshipsService.update(params.studentId, internshipDto);
   }
 
   @Put(':studentId/tracking')
   updateState(
     @Param() params: { studentId: string },
-    @Body() body: { state: string; content: string },
-  ) {
+    @Body() body: { state: string; content?: string | boolean },
+  ): Promise<InternshipEntity | void> {
     if (!InternshipStates.isStateValid(body.state))
       throw BAD_TRACKING_STATE(body.state);
-    // Treat request and update tracking -> implement service + dao
+    // AMINE : Handle PDF file upload -> save file in /pdf/ folder and set content as local file URL. In case of step with no file, set content as true/false
+    return this._internshipsService.updateTracking(
+      params.studentId,
+      body.state,
+      body.content,
+    );
   }
 
   @Delete(':studentId')
   delete(
     @Param() params: { studentId: string },
   ): Promise<InternshipEntity | void> {
-    return this._groupsService.delete(params.studentId);
+    return this._internshipsService.delete(params.studentId);
   }
 }
