@@ -105,3 +105,6 @@ dist
 
 # config files
 config.json
+
+# file where we store pdf
+internship-agreements/

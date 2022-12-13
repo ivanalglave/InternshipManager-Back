@@ -121,7 +121,7 @@ export class InternshipDao {
   ): Promise<Internship | void> =>
     new Promise((resolve, reject) => {
       if (!isStateValid(state)) reject(BAD_REQUEST);
-      console.log(typeof content);
+      console.log(content);
       let nextState: string, contentHolder: string;
       let valid = false;
       switch (state) {

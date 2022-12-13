@@ -1,6 +1,6 @@
 {
   "server": {
-    "uri": "localhost",
+    "url": "localhost",
     "port": 3001
   },
   "mongodb": {

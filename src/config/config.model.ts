@@ -1,4 +1,5 @@
 export interface IServerConfig {
+  url: string;
   port: number;
 }
 
