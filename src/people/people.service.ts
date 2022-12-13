@@ -8,6 +8,9 @@ import { PeopleEntity } from './entities/people.entity';
 export class PeopleService {
   constructor(private readonly _peopleDao: PeopleDao) {}
 
+  login = (email: string, password: string): Promise<PeopleEntity | void> =>
+    this._peopleDao.login(email, password);
+
   findAll = (): Promise<PeopleEntity[] | void> => this._peopleDao.find();
 
   findOne = (id: string): Promise<PeopleEntity | void> =>

@@ -16,11 +16,21 @@ import { HttpInterceptor } from '../interceptors/http.interceptor';
 import { PeopleEntity } from './entities/people.entity';
 import { PeopleService } from './people.service';
 
+ interface Login {
+  email: string;
+  password: string;
+}
+
 @Controller('people')
 @UseInterceptors(HttpInterceptor)
 export class PeopleController {
   constructor(private readonly _peopleService: PeopleService) {}
 
+  @Post('/login')
+  login(@Body() login: Login): Promise<PeopleEntity | void> {
+    return this._peopleService.login(login.email, login.password);
+  }
+  
   @Get()
   findAll(): Promise<PeopleEntity[] | void> {
     return this._peopleService.findAll();
