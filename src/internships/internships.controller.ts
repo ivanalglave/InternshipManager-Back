@@ -16,7 +16,6 @@ import { CreateInternshipDto } from './dto/create-internship.dto';
 import { InternshipEntity } from './entities/internship.entity';
 import { InternshipService } from './internships.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import * as path from 'path';
 import {
   STATE_RESPONSIBLE_ACCEPTS_INTERNSHIP_INFORMATION,
   STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION,
@@ -24,6 +23,7 @@ import {
 import config from 'src/config';
 import { Optional } from '@nestjs/common/decorators';
 import { v4 } from 'uuid';
+import { diskStorage } from 'multer';
 
 @Controller('internships')
 @UseInterceptors(HttpInterceptor)
@@ -57,14 +57,16 @@ export class InternshipsController {
     return this._internshipsService.update(params.studentId, internshipDto);
   }
 
+  // uploads even if invalid state...
   @Put(':studentId/:state')
   @UseInterceptors(
     FileInterceptor('pdf', {
-      dest: './internship-agreements',
-      fileFilter: (req, file, cb) => {
-        file.filename = `${v4()}.pdf`;
-        cb(null, true);
-      },
+      storage: diskStorage({
+        destination: './files',
+        filename: (_req, _file, cb) => {
+          return cb(null, `${v4()}.pdf`);
+        },
+      }),
     }),
   )
   updateState(
@@ -74,12 +76,6 @@ export class InternshipsController {
   ): Promise<InternshipEntity | void> {
     if (!InternshipStates.isStateValid(params.state))
       throw BAD_TRACKING_STATE(params.state);
-
-    // AMINE : Handle PDF file upload -> save file in /pdf/ folder and set content as local file URL. In case of step with no file, set content as true/false
-
-    //case where there isn't a file
-    //Deux premiers états
-
     if (
       params.state === STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION ||
       params.state === STATE_RESPONSIBLE_ACCEPTS_INTERNSHIP_INFORMATION
@@ -92,18 +88,12 @@ export class InternshipsController {
       );
     }
 
-    //case where there is a file
     if (!file) throw BAD_REQUEST;
-    console.log(file);
-    console.log(config);
+    console.log(params.state);
     return this._internshipsService.updateTracking(
       params.studentId,
       params.state,
-      path.join(
-        `${config.server.url}:${config.server.port}`,
-        file.path,
-        file.fieldname,
-      ),
+      `${config.server.uri}:${config.server.port}/resources/agreements/${file.filename}`,
     );
   }
 

@@ -1,7 +1,10 @@
 {
   "server": {
-    "url": "localhost",
+    "uri": "localhost",
     "port": 3001
+  },
+  "resources": {
+    "internshipAgreements": "internship-agreements"
   },
   "mongodb": {
     "uri": "mongodb://localhost:27017/internship-manager"
