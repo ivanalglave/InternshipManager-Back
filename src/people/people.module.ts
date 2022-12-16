@@ -6,11 +6,11 @@ import { PeopleService } from './people.service';
 import { People, PeopleSchema } from './schemas/people.schema';
 
 @Module({
-    imports: [
-      MongooseModule.forFeature([{ name: People.name, schema: PeopleSchema }]),
-    ],
-    controllers: [PeopleController],
-    providers: [PeopleService, PeopleDao, Logger],
-  })
-
-  export class PeopleModule {}
+  imports: [
+    MongooseModule.forFeature([{ name: People.name, schema: PeopleSchema }]),
+  ],
+  controllers: [PeopleController],
+  providers: [PeopleService, PeopleDao, Logger],
+  exports: [PeopleService],
+})
+export class PeopleModule {}
