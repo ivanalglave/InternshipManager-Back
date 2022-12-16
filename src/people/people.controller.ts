@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   UseInterceptors,
+  UseGuards
 } from '@nestjs/common';
 import { CreatePeopleDto } from './dto/create-people.dto';
 import { UpdatePeopleDto } from './dto/update-people.dto';
@@ -15,6 +16,7 @@ import { HttpInterceptor } from '../interceptors/http.interceptor';
 //   import { UpdatePeopleDto } from './dto/update-people.dto';
 import { PeopleEntity } from './entities/people.entity';
 import { PeopleService } from './people.service';
+import { AuthGuard } from '@nestjs/passport';
 
  interface Login {
   email: string;
@@ -26,15 +28,14 @@ import { PeopleService } from './people.service';
 export class PeopleController {
   constructor(private readonly _peopleService: PeopleService) {}
 
-  @Post('/login')
-  login(@Body() login: Login): Promise<PeopleEntity | void> {
-    return this._peopleService.login(login.email, login.password);
-  }
-  
+
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(): Promise<PeopleEntity[] | void> {
     return this._peopleService.findAll();
   }
+  
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   findOne(@Param() params: { id: string }): Promise<PeopleEntity | void> {
     return this._peopleService.findOne(params.id);
