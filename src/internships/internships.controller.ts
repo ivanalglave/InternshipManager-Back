@@ -7,13 +7,23 @@ import {
   Param,
   Body,
   UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
-import { BAD_TRACKING_STATE } from 'src/shared/HttpError';
+import { BAD_REQUEST, BAD_TRACKING_STATE } from 'src/shared/HttpError';
 import * as InternshipStates from 'src/shared/InternshipState';
 import { HttpInterceptor } from '../interceptors/http.interceptor';
 import { CreateInternshipDto } from './dto/create-internship.dto';
 import { InternshipEntity } from './entities/internship.entity';
 import { InternshipService } from './internships.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  STATE_RESPONSIBLE_ACCEPTS_INTERNSHIP_INFORMATION,
+  STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION,
+} from 'src/shared/InternshipState';
+import config from 'src/config';
+import { Optional } from '@nestjs/common/decorators';
+import { v4 } from 'uuid';
+import { diskStorage } from 'multer';
 
 @Controller('internships')
 @UseInterceptors(HttpInterceptor)
@@ -47,18 +57,43 @@ export class InternshipsController {
     return this._internshipsService.update(params.studentId, internshipDto);
   }
 
-  @Put(':studentId/tracking')
+  // uploads even if invalid state...
+  @Put(':studentId/:state')
+  @UseInterceptors(
+    FileInterceptor('pdf', {
+      storage: diskStorage({
+        destination: './files',
+        filename: (_req, _file, cb) => {
+          return cb(null, `${v4()}.pdf`);
+        },
+      }),
+    }),
+  )
   updateState(
-    @Param() params: { studentId: string },
-    @Body() body: { state: string; content?: string | boolean },
+    @Param() params: { studentId: string; state: string },
+    @Optional() @Body() body: { content?: boolean },
+    @Optional() @UploadedFile() file,
   ): Promise<InternshipEntity | void> {
-    if (!InternshipStates.isStateValid(body.state))
-      throw BAD_TRACKING_STATE(body.state);
-    // AMINE : Handle PDF file upload -> save file in /pdf/ folder and set content as local file URL. In case of step with no file, set content as true/false
+    if (!InternshipStates.isStateValid(params.state))
+      throw BAD_TRACKING_STATE(params.state);
+    if (
+      params.state === STATE_STUDENT_ENTERS_INTERNSHIP_INFORMATION ||
+      params.state === STATE_RESPONSIBLE_ACCEPTS_INTERNSHIP_INFORMATION
+    ) {
+      if (!body) throw BAD_REQUEST;
+      return this._internshipsService.updateTracking(
+        params.studentId,
+        params.state,
+        body.content,
+      );
+    }
+
+    if (!file) throw BAD_REQUEST;
+    console.log(params.state);
     return this._internshipsService.updateTracking(
       params.studentId,
-      body.state,
-      body.content,
+      params.state,
+      `${config.server.uri}:${config.server.port}/resources/agreements/${file.filename}`,
     );
   }
 

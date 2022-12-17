@@ -11,6 +11,7 @@ export const NOT_FOUND = new NotFoundException();
 export const CONFLICT = new ConflictException();
 export const BAD_REQUEST = new BadRequestException();
 export const INTERNAL = new InternalServerErrorException();
+export const UNPROCESSABLE_ENTITY = new UnprocessableEntityException();
 export const BAD_TRACKING_STATE = (badState: string) =>
   new UnprocessableEntityException(`Unknown state [${badState}]`);
 export const CUSTOM = (reason: string, errorStatus: number) =>

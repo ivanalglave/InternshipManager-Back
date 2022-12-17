@@ -7,7 +7,8 @@ import { exit } from 'process';
 const CONFIG_DEV = 'config.json';
 const CONFIG_PROD = 'config.prod.json';
 
-let config;
+let config: IConfig;
+console.log(process.env.NODE_ENV);
 // Load config based on env
 switch (process.env.NODE_ENV) {
   case 'dev':
@@ -29,6 +30,8 @@ switch (process.env.NODE_ENV) {
     );
     exit(-1);
 }
+
+console.log(config);
 
 // Export config
 export default config;
