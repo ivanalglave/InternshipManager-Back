@@ -4,9 +4,15 @@ import { CreatePeopleDto } from './dto/create-people.dto';
 import { UpdatePeopleDto } from './dto/update-people.dto';
 import { PeopleEntity } from './entities/people.entity';
 
+
+
 @Injectable()
 export class PeopleService {
+
   constructor(private readonly _peopleDao: PeopleDao) {}
+
+  login = (email: string, password: string): Promise<PeopleEntity | void> =>
+    this._peopleDao.login(email, password);
 
   findAll = (): Promise<PeopleEntity[] | void> => this._peopleDao.find();
 

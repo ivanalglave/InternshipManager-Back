@@ -69,4 +69,12 @@ export class GroupsDao {
         resolve();
       });
     });
+
+  findByParentAndRemove = (parent: string): Promise<Group | void> =>
+    new Promise((resolve, reject) => {
+      this._groupModel.remove({parent : {$regex : parent}}, (err) => {
+        if (err) reject(err.message);
+        resolve();
+      });
+    });
 }

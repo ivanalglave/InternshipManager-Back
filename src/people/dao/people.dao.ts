@@ -17,6 +17,15 @@ export class PeopleDao {
     private readonly _peopleModel: Model<People>,
   ) {}
 
+  login = (email: string, password: string): Promise<People | void> =>
+    new Promise((resolve, reject) => {
+      this._peopleModel.findOne({email : email, passwordHash : password}, (err, value) => {
+        if (err) reject(err.message);
+        if (!value) reject(new NotFoundException('Email or password is incorrect!'));
+        resolve(value);
+      });
+    });
+
   find = (): Promise<People[]> =>
     new Promise((resolve, reject) => {
       this._peopleModel.find({}, {}, {}, (err, value) => {
