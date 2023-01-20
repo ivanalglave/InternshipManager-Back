@@ -12,8 +12,14 @@ interface IMongodbConfig {
   uri: string;
 }
 
+interface IMailgunConfig {
+  apiKey: string;
+  domain: string;
+}
+
 export interface IConfig {
   server: IServerConfig;
   resources: IResources;
   mongodb: IMongodbConfig;
+  mailgun: IMailgunConfig;
 }

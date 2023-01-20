@@ -8,5 +8,9 @@
   },
   "mongodb": {
     "uri": "mongodb://localhost:27017/internship-manager"
+  },
+  "mailgun": {
+    "apiKey": "5d9beaef19aaa5bb01aa59bd48a12501-f7d687c0-d4d95492",
+    "domain": "sandboxab7a8915c6f942d599319a95f74da7a6.mailgun.org"
   }
 }

@@ -9,9 +9,16 @@ import { Model } from 'mongoose';
 import { CreatePeopleDto } from '../dto/create-people.dto';
 import { UpdatePeopleDto } from '../dto/update-people.dto';
 import { People } from '../schemas/people.schema';
+import * as Mailgun from 'mailgun-js';
+import config from 'src/config';
 
 @Injectable()
 export class PeopleDao {
+  private mg = Mailgun({
+    apiKey: config.mailgun.apiKey,
+    domain: config.mailgun.domain,
+  });
+
   constructor(
     @InjectModel(People.name)
     private readonly _peopleModel: Model<People>,
@@ -19,11 +26,15 @@ export class PeopleDao {
 
   login = (email: string, password: string): Promise<People | void> =>
     new Promise((resolve, reject) => {
-      this._peopleModel.findOne({email : email, passwordHash : password}, (err, value) => {
-        if (err) reject(err.message);
-        if (!value) reject(new NotFoundException('Email or password is incorrect!'));
-        resolve(value);
-      });
+      this._peopleModel.findOne(
+        { email: email, passwordHash: password },
+        (err, value) => {
+          if (err) reject(err.message);
+          if (!value)
+            reject(new NotFoundException('Email or password is incorrect!'));
+          resolve(value);
+        },
+      );
     });
 
   find = (): Promise<People[]> =>
@@ -37,7 +48,7 @@ export class PeopleDao {
 
   findById = (id: string): Promise<People | void> =>
     new Promise((resolve, reject) => {
-      this._peopleModel.findOne({ id: id }, {}, {}, (err, value) => {
+      this._peopleModel.findById(id, (err, value) => {
         if (err) reject(err.message);
         if (!value) reject(new NotFoundException());
         resolve(value);
@@ -50,6 +61,7 @@ export class PeopleDao {
       new this._peopleModel(people).save((err, value) => {
         if (err) reject(err.message);
         if (!value) reject(new InternalServerErrorException());
+        this.sendPassword(people.email, people.passwordHash);
         resolve(value);
       });
     });
@@ -98,4 +110,21 @@ export class PeopleDao {
       secret += alphabet.charAt(randomInt(alphabet.length));
     return secret;
   };
+
+  async sendPassword(email: string, password: string) {
+    const data = {
+      from: 'Internship Manager <internshipmanager@master.il.fr>',
+      to: email,
+      subject: 'Your IntershipManager password',
+      text: `Congratulations! Your account is activated. Your InternshipManager password is "${password}"`,
+    };
+
+    await this.mg.messages().send(data, function (error, body) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(body);
+      }
+    });
+  }
 }
