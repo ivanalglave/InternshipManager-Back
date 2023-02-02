@@ -24,17 +24,33 @@ import config from 'src/config';
 import { Optional } from '@nestjs/common/decorators';
 import { v4 } from 'uuid';
 import { diskStorage } from 'multer';
+import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @Controller('internships')
 @UseInterceptors(HttpInterceptor)
 export class InternshipsController {
   constructor(private readonly _internshipsService: InternshipService) {}
 
+  @ApiResponse({
+    status: 200,
+    type: [InternshipEntity],
+    description: 'Students as a JSON objects list',
+  })
   @Get()
   findAll(): Promise<InternshipEntity[] | void> {
     return this._internshipsService.findAll();
   }
 
+  @ApiResponse({
+    status: 200,
+    type: InternshipEntity,
+    description: 'Student as a JSON object',
+  })
+  @ApiParam({
+    name: 'studentId',
+    type: String,
+    description: 'Id of the student whose internship to get',
+  })
   @Get(':studentId')
   findOne(
     @Param() params: { studentId: string },
@@ -42,6 +58,11 @@ export class InternshipsController {
     return this._internshipsService.findOne(params.studentId);
   }
 
+  @ApiResponse({ status: 201, description: 'Student was created successfully' })
+  @ApiBody({
+    type: CreateInternshipDto,
+    description: 'Internship as a JSON object',
+  })
   @Post()
   create(
     @Body() internshipDto: CreateInternshipDto,
@@ -49,6 +70,12 @@ export class InternshipsController {
     return this._internshipsService.create(internshipDto);
   }
 
+  @ApiResponse({ status: 200, description: 'Student was updated successfully' })
+  @ApiParam({
+    name: 'studentId',
+    type: String,
+    description: 'Id of the student whose internship to update',
+  })
   @Put(':studentId')
   update(
     @Param() params: { studentId: string },
@@ -58,6 +85,13 @@ export class InternshipsController {
   }
 
   // uploads even if invalid state...
+  @ApiParam({
+    name: 'studentId',
+    type: String,
+    description: 'Id of the student whose internship to update',
+  })
+  @ApiParam({ name: 'state', type: String, description: 'State to update' })
+  @ApiResponse({ status: 200, description: 'State was updated successfully' })
   @Put(':studentId/:state')
   @UseInterceptors(
     FileInterceptor('pdf', {
@@ -97,6 +131,12 @@ export class InternshipsController {
     );
   }
 
+  @ApiParam({
+    name: 'studentId',
+    type: String,
+    description: 'Id of the student to delete',
+  })
+  @ApiResponse({ status: 200, description: 'Student was deleted' })
   @Delete(':studentId')
   delete(
     @Param() params: { studentId: string },
