@@ -22,7 +22,7 @@ You may need to restart your console to be able to use the NestJS commands.
 Use npm to download all the dependencies :
 
 ```bash
-$ npm install
+$ npm ci
 ```
 
 ### Setting up your config file
