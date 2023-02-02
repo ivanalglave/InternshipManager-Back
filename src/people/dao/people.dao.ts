@@ -11,14 +11,15 @@ import { UpdatePeopleDto } from '../dto/update-people.dto';
 import { People } from '../schemas/people.schema';
 import * as Mailgun from 'mailgun-js';
 import config from 'src/config';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PeopleDao {
-  private mg = Mailgun({
+  /*private mg = Mailgun({
     apiKey: config.mailgun.apiKey,
     domain: config.mailgun.domain,
   });
-
+*/
   constructor(
     @InjectModel(People.name)
     private readonly _peopleModel: Model<People>,
@@ -55,8 +56,8 @@ export class PeopleDao {
       });
     });
 
-  save = (people: CreatePeopleDto): Promise<People> => {
-    people.passwordHash = this.secret();
+  save = async (people: CreatePeopleDto): Promise<People> => {
+    people.passwordHash = await this.secret();
     return new Promise((resolve, reject) => {
       new this._peopleModel(people).save((err, value) => {
         if (err) reject(err.message);
@@ -95,7 +96,7 @@ export class PeopleDao {
       });
     });
 
-  secret = (length = 10) => {
+  secret = async (length = 10) => {
     const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
     const digits = '0123456789';
@@ -108,7 +109,11 @@ export class PeopleDao {
     let secret = '';
     for (let index = 0; index < length; index++)
       secret += alphabet.charAt(randomInt(alphabet.length));
-    return secret;
+    
+    const saltOrRounds = 10;
+    const hash = await bcrypt.hash(secret, saltOrRounds);
+    console.log(secret);
+    return hash;
   };
 
   async sendPassword(email: string, password: string) {
@@ -119,12 +124,12 @@ export class PeopleDao {
       text: `Congratulations! Your account is activated. Your InternshipManager password is "${password}"`,
     };
 
-    await this.mg.messages().send(data, function (error, body) {
+    /*await this.mg.messages().send(data, function (error, body) {
       if (error) {
         console.log(error);
       } else {
         console.log(body);
       }
-    });
+    });*/
   }
 }
