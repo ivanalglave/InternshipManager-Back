@@ -70,4 +70,6 @@ Any other command used to start might have *undefined behaviour* at runtime, as 
 
 When running, the documentation can be found at: `{url}/api`, and specific controllers can be found at `{url}/api/{controller name}`
 
+
+______
 Check the [license](LICENSE).
