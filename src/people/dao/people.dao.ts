@@ -25,18 +25,21 @@ export class PeopleDao {
     private readonly _peopleModel: Model<People>,
   ) {}
 
-  login = (email: string, password: string): Promise<People | void> =>
-    new Promise((resolve, reject) => {
-      this._peopleModel.findOne(
-        { email: email, passwordHash: password },
-        (err, value) => {
-          if (err) reject(err.message);
-          if (!value)
-            reject(new NotFoundException('Email or password is incorrect!'));
-          resolve(value);
-        },
-      );
-    });
+  login = async (email: string, password: string): Promise<People | void> => {
+    try {
+      const user = await this._peopleModel.findOne({ email });
+      if (!user) {
+        throw new NotFoundException('Email or password is incorrect!');
+      }
+      const isPasswordCorrect = await bcrypt.compare(password, user.passwordHash);
+      if (!isPasswordCorrect) {
+        throw new NotFoundException('Email or password is incorrect!');
+      }
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  };
 
   find = (): Promise<People[]> =>
     new Promise((resolve, reject) => {
@@ -109,7 +112,7 @@ export class PeopleDao {
     let secret = '';
     for (let index = 0; index < length; index++)
       secret += alphabet.charAt(randomInt(alphabet.length));
-    
+
     const saltOrRounds = 10;
     const hash = await bcrypt.hash(secret, saltOrRounds);
     console.log(secret);
