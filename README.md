@@ -27,7 +27,7 @@ $ npm install
 
 ### Setting up your config file
 
-In `/src/config/`, make a copy of the file `config.template.json` and rename it to `config.json`. 
+In `/dist/config/`, make a copy of the file `config.template.json` and rename it to `config.json`. 
 Set the following field :
 
 ```json
@@ -42,7 +42,7 @@ You may replace `3001` by any port you wish to run the server on.
 ### Setting up the database
 
 This server uses [Mongodb](https://www.mongodb.com/) for persistent data storage. To initiate the database, you must have an instance of mongo running. You may use the dockerfile located in `docker/` at the root of the project and run the command `$ docker-compose up -d` to create and run a mongo instance as a background task (get [Docker](https://www.docker.com/)).
-In the `src/config/config.json`, set the following field :
+In the `dist/config/config.json`, set the following field :
 
 ```json
 "mongodb": {
