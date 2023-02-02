@@ -66,4 +66,8 @@ $ npm run start:prod
 
 Any other command used to start might have *undefined behaviour* at runtime, as above commands may set environment variables required at runtime.
 
+## API documentation and endpoints
+
+When running, the documentation can be found at: `{url}/api`, and specific controllers can be found at `{url}/api/{controller name}`
+
 Check the [license](LICENSE).
