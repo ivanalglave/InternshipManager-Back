@@ -14,7 +14,7 @@ import { ResourcesModule } from './resources/resources.module';
     InternshipsModule,
     ResourcesModule,
     MongooseModule.forRoot(config.mongodb.uri),
-    LoginModule,
+    LoginModule, 
   ],
 })
 export class AppModule {}
