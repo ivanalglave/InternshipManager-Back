@@ -42,6 +42,19 @@ export class GroupsController {
     return this._groupsService.update(params.id, updateGroupDto);
   }
 
+  @Put(':id/:role')
+  updateOneByRole(
+    @Param() params: { id: string; role: string },
+    @Body() body: { personId: string; action: string },
+  ): Promise<GroupEntity | void> {
+    return this._groupsService.updateOneByRole(
+      params.id,
+      params.role,
+      body.personId,
+      body.action,
+    );
+  }
+
   @Delete(':id')
   delete(@Param() params: { id: string }): Promise<GroupEntity | void> {
     return this._groupsService.delete(params.id);
