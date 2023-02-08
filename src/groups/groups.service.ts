@@ -19,15 +19,22 @@ export class GroupsService {
   update = (id: string, group: UpdateGroupDto): Promise<GroupEntity | void> =>
     this._groupsDao.findByIdAndUpdate(id, group);
 
+  updateOneByRole = (
+    id: string,
+    role: string,
+    personId: string,
+    action: string,
+  ): Promise<GroupEntity | void> =>
+    this._groupsDao.findByIdAndUpdateRole(id, role, personId, action);
+
   delete(id: string): Promise<GroupEntity | void> {
-    return this._groupsDao.findById(id).then(res => {
-      if(res){
-        let parent = res.parent + "-" + res.name;
+    return this._groupsDao.findById(id).then((res) => {
+      if (res) {
+        const parent = res.parent + '-' + res.name;
         this._groupsDao.findByIdAndRemove(id).then(() => {
           this._groupsDao.findByParentAndRemove(parent);
-        })
+        });
       }
-    })
-
+    });
   }
 }
