@@ -47,11 +47,6 @@ export class GroupsController {
     @Param() params: { id: string; role: string },
     @Body() body: { personId: string; action: string },
   ): Promise<GroupEntity | void> {
-    console.log('***************' + params.id,
-      params.role,
-      body.personId,
-      body.action);
-    
     return this._groupsService.updateOneByRole(
       params.id,
       params.role,
