@@ -120,7 +120,7 @@ export class InternshipDao {
     content: string | boolean,
   ): Promise<Internship | void> =>
     new Promise((resolve, reject) => {
-      console.log('%s/%s: {%s}', studentId, state, content);
+      // console.log('%s/%s: {%s}', studentId, state, content);
       if (!isStateValid(state)) reject(BAD_REQUEST);
       console.log(content);
       let nextState: string, contentHolder: string;
