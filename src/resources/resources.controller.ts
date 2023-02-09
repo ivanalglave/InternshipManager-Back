@@ -19,7 +19,7 @@ export class ResourcesController {
     @Param('filename') filename,
     @Res({ passthrough: true }) res: Response,
   ): StreamableFile {
-    const filepath = `files\\${filename}`;
+    const filepath = `files/${filename}`;
     if (!existsSync(filepath)) throw NOT_FOUND;
     const file = createReadStream(filepath);
     res.set({
