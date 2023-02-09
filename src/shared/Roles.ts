@@ -22,7 +22,7 @@ export const roleValue = (role: string): number => {
     case ROLE_RESPONSIBLE:
       return 2;
     case ROLE_ADMIN:
-      return 9999;
+      return -9999;
     default:
       return -1;
   }
