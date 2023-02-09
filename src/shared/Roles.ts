@@ -12,3 +12,18 @@ export const ROLES = [
 
 export const isRoleValid = (potentialRole: string): boolean =>
   ROLES.includes(potentialRole);
+
+export const roleValue = (role: string): number => {
+  switch (role) {
+    case ROLE_STUDENT:
+      return 0;
+    case ROLE_SECRETARY:
+      return 1;
+    case ROLE_RESPONSIBLE:
+      return 2;
+    case ROLE_ADMIN:
+      return 9999;
+    default:
+      return -1;
+  }
+};

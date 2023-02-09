@@ -12,6 +12,8 @@ import { People } from '../schemas/people.schema';
 import * as Mailgun from 'mailgun-js';
 import config from 'src/config';
 import * as bcrypt from 'bcrypt';
+import { PeopleEntity } from '../entities/people.entity';
+import { CONFLICT } from 'src/shared/HttpError';
 
 @Injectable()
 export class PeopleDao {
@@ -72,6 +74,41 @@ export class PeopleDao {
       });
     });
   };
+
+  saveMany = async (people: CreatePeopleDto[]): Promise<PeopleEntity[]> =>
+    Promise.all(
+      people.map(
+        (person): Promise<PeopleEntity> =>
+          new Promise((resolve, reject) => {
+            this._peopleModel.findOne(
+              { email: person.email },
+              {},
+              {},
+              (err, value) => {
+                if (err) {
+                  reject(err.message);
+                } else if (!value) {
+                  // Person does not exist -> create password + add to database
+                  this.secret().then((value) => {
+                    person.passwordHash = value;
+                    new this._peopleModel(person).save((err, value) => {
+                      if (err) reject(err.message);
+                      if (!value) reject(new InternalServerErrorException());
+                      this.sendPassword(person.email, person.passwordHash);
+                      resolve(value);
+                    });
+                  });
+                } else {
+                  resolve(value);
+                }
+              },
+            );
+          }),
+      ),
+    );
+  // Check for existing people in database based on email
+  // Add missing people
+  // Get all added people as PeopleEntity to have access to IDs
 
   findByIdAndUpdate = (
     id: string,

@@ -107,6 +107,53 @@ export class GroupsDao {
       );
     });
 
+  findByIdAndUpdateManyByRole = (
+    id: string,
+    role: string,
+    peopleIds: string[],
+    action: string,
+  ): Promise<Group | void> =>
+    new Promise((resolve, reject) => {
+      let query = {};
+      if (action === 'post') {
+        switch (role) {
+          case Roles.ROLE_RESPONSIBLE:
+            query = { $addToSet: { responsibles: { $each: peopleIds } } };
+            break;
+          case Roles.ROLE_SECRETARY:
+            query = { $addToSet: { secretaries: { $each: peopleIds } } };
+            break;
+          case Roles.ROLE_STUDENT:
+            query = { $addToSet: { students: { $each: peopleIds } } };
+            break;
+          default:
+            reject(new BadRequestException('Bad role'));
+        }
+      } else if (action === 'delete') {
+        switch (role) {
+          case Roles.ROLE_RESPONSIBLE:
+            query = { $pull: { responsibles: { $in: peopleIds } } };
+            break;
+          case Roles.ROLE_SECRETARY:
+            query = { $pull: { secretaries: { $in: peopleIds } } };
+            break;
+          case Roles.ROLE_STUDENT:
+            query = { $pull: { students: { $in: peopleIds } } };
+            break;
+          default:
+            reject(new BadRequestException('Bad role'));
+        }
+      } else reject(new BadRequestException('Unknown action'));
+      this._groupModel.findByIdAndUpdate(
+        id,
+        query,
+        { new: true },
+        (err, value) => {
+          if (err) reject(err.message);
+          resolve(value);
+      });
+    });
+
   findByIdAndRemove = (id: string): Promise<Group | void> =>
     new Promise((resolve, reject) => {
       this._groupModel.findByIdAndDelete(id, {}, (err) => {
