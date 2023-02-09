@@ -49,6 +49,14 @@ export class InternshipsController {
     return this._internshipsService.create(internshipDto);
   }
 
+  @Post("/generate/:id")
+  generatePDF(@Param() params: { id: string }): Promise<InternshipEntity> {
+    return this._internshipsService.generatePDF(params.id);
+  }
+
+
+
+
   @Put(':studentId')
   update(
     @Param() params: { studentId: string },
@@ -103,4 +111,5 @@ export class InternshipsController {
   ): Promise<InternshipEntity | void> {
     return this._internshipsService.delete(params.studentId);
   }
+  
 }
