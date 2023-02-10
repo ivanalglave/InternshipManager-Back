@@ -1,6 +1,10 @@
-import { IsBoolean, IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsBoolean, IsString, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
 
 export class CreatePeopleDto {
+
+  @IsNumber()
+  @IsNotEmpty()
+  ine: number;
 
   @IsString()
   @IsNotEmpty()

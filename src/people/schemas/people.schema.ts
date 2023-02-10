@@ -19,6 +19,11 @@ export class People {
       })
       _id: any;
     
+      @Prop({
+        type: Number,
+        required: true,
+    }) ine: number;
+
     @Prop({
         type: String,
         required: true,
