@@ -60,13 +60,19 @@ export class InternshipsController {
   // uploads even if invalid state...
   @Put(':studentId/:state')
   @UseInterceptors(
-    FileInterceptor('pdf', {
+    FileInterceptor('file', {
       storage: diskStorage({
         destination: './files',
         filename: (_req, _file, cb) => {
           return cb(null, `${v4()}.pdf`);
         },
       }),
+      fileFilter: (req, file, cb) => {
+        if (!file.originalname.match(/\.pdf$/)) {
+          return cb(new Error('Only PDF files are allowed!'), false);
+        }
+        cb(null, true);
+      },
     }),
   )
   updateState(

@@ -11,7 +11,7 @@ export class LoginController {
 //   @UseGuards(AuthGuard('local'))
   @Post()
    async login(@Body() req: Login)  {
-    console.log('controller ' + req.email + req.passwordHash);
+    // console.log('controller ' + req.email + req.passwordHash);
     return this.loginService.login(req);
   }
 }
