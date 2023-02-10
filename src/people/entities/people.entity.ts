@@ -2,6 +2,7 @@ import { People } from '../schemas/people.schema';
 
 export class PeopleEntity {
   _id: string;
+  ine: number;
   firstname: string;
   lastname: string;
   email: string;
