@@ -4,7 +4,7 @@ export class CreatePeopleDto {
 
   @IsNumber()
   @IsNotEmpty()
-  ine: number;
+  numetu: number;
 
   @IsString()
   @IsNotEmpty()
