@@ -2,9 +2,9 @@ import { IsOptional, IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class UpdatePeopleDto {
   
-  @IsNumber()
-  @IsNotEmpty()
-  numetu: number;
+  @IsString()
+  @IsOptional()
+  numetu: string;
   
   @IsString()
   @IsOptional()

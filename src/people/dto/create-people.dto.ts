@@ -2,9 +2,9 @@ import { IsBoolean, IsString, IsNotEmpty, IsOptional, IsNumber } from 'class-val
 
 export class CreatePeopleDto {
 
-  @IsNumber()
-  @IsNotEmpty()
-  numetu: number;
+  @IsString()
+  @IsOptional()
+  numetu: string;
 
   @IsString()
   @IsNotEmpty()
