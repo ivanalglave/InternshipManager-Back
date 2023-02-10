@@ -49,13 +49,10 @@ export class InternshipsController {
     return this._internshipsService.create(internshipDto);
   }
 
-  @Post("/generate/:id")
-  generatePDF(@Param() params: { id: string }): Promise<InternshipEntity> {
+  @Post("/:id/generate")
+  generatePDF(@Param() params: { id: string }): Promise<InternshipEntity | void> {
     return this._internshipsService.generatePDF(params.id);
   }
-
-
-
 
   @Put(':studentId')
   update(

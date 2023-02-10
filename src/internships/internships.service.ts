@@ -32,13 +32,13 @@ export class InternshipService {
     var adresse = information.company.address;
     var adresseString = adresse.street + ', ' + adresse.postalCode + ', ' + + adresse.city + ', ' + adresse.country;
 
-    var telOrganisme = '+33 6 63 12 84 65';
+    var telOrganisme = 'NULL';
 
     var melOrganisme = information.company.hrContactEmail;
 
     var reprsentePar = information.company.ceoName;
 
-    var qualiteRepresentant = 'CEO';
+    var qualiteRepresentant = 'NULL';
 
     var nomService = information.affectation.service;
 
@@ -98,7 +98,7 @@ export class InternshipService {
     y: 564,
     size: 9,
     font: helveticaFont,
-    color: rgb(0.95, 0.1, 0.1),
+    color: rgb(0, 0, 0),
     rotate: degrees(0),
     });
 
@@ -107,7 +107,7 @@ export class InternshipService {
     y: 542,
     size: 9,
     font: helveticaFont,
-    color: rgb(0.95, 0.1, 0.1),
+    color: rgb(0, 0, 0),
     rotate: degrees(0),
     });
 
@@ -116,7 +116,7 @@ export class InternshipService {
       y: 522,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
       });
 
@@ -125,7 +125,7 @@ export class InternshipService {
       y: 522,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
       });
     
@@ -134,7 +134,7 @@ export class InternshipService {
       y: 501,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
       });
     
@@ -143,7 +143,7 @@ export class InternshipService {
       y: 480,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -152,7 +152,7 @@ export class InternshipService {
       y: 459,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -161,7 +161,7 @@ export class InternshipService {
       y: 438,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -171,7 +171,7 @@ export class InternshipService {
       y: 396,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -180,7 +180,7 @@ export class InternshipService {
       y: 374,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -189,7 +189,7 @@ export class InternshipService {
       y: 353,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -198,7 +198,7 @@ export class InternshipService {
       y: 331,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -207,7 +207,7 @@ export class InternshipService {
       y: 331,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -216,7 +216,7 @@ export class InternshipService {
       y: 231,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -225,7 +225,7 @@ export class InternshipService {
       y: 214,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -234,7 +234,7 @@ export class InternshipService {
       y: 214,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -243,7 +243,7 @@ export class InternshipService {
       y: 197,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -252,7 +252,7 @@ export class InternshipService {
       y: 197,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -261,7 +261,7 @@ export class InternshipService {
       y: 131,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -270,7 +270,7 @@ export class InternshipService {
       y: 110,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -279,7 +279,7 @@ export class InternshipService {
       y: 89,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
@@ -288,7 +288,7 @@ export class InternshipService {
       y: 69,
       size: 9,
       font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
+      color: rgb(0, 0, 0),
       rotate: degrees(0),
     });
 
