@@ -22,7 +22,7 @@ export class People {
       @Prop({
         type: Number,
         required: true,
-    }) ine: number;
+    }) numetu: number;
 
     @Prop({
         type: String,

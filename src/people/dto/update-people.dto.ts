@@ -4,7 +4,7 @@ export class UpdatePeopleDto {
   
   @IsNumber()
   @IsNotEmpty()
-  ine: number;
+  numetu: number;
   
   @IsString()
   @IsOptional()
