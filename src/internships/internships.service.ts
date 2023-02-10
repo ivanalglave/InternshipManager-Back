@@ -4,7 +4,7 @@ import { CreateInternshipDto } from './dto/create-internship.dto';
 import { InternshipEntity } from './entities/internship.entity';
 import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib';
 import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { join } from 'path'; 
 
 
 
@@ -80,7 +80,7 @@ export class InternshipService {
 
     var melTuteur = information.affectation.responsibleEmail;
 
-    const filePath = join(__dirname, '..', '..', 'files', 'convention_a_modifier.pdf');
+    const filePath = join(__dirname, '..', '..', 'src', 'shared', 'conventions', 'convention_a_modifier.pdf');
     const existingPdfBytes = readFileSync(filePath);
 
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -299,7 +299,7 @@ export class InternshipService {
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save();
     const newFileName = 'convention-' + id;
-    const newFilePath = join(__dirname, '..', '..', 'files', newFileName + '.pdf');
+    const newFilePath = join(__dirname, '..', '..','src', 'shared', 'conventions', newFileName + '.pdf');
     writeFileSync(newFilePath, pdfBytes);
 
     return null;
