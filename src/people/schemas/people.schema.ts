@@ -20,8 +20,9 @@ export class People {
       _id: any;
     
       @Prop({
-        type: Number,
-    }) numetu: number;
+        type: String,
+        trim: true,
+    }) numetu: string;
 
     @Prop({
         type: String,
