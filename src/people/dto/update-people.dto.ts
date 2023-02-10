@@ -3,7 +3,7 @@ import { IsOptional, IsString, IsNotEmpty, IsNumber } from 'class-validator';
 export class UpdatePeopleDto {
   
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   numetu: number;
   
   @IsString()

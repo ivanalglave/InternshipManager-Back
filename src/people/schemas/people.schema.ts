@@ -21,7 +21,6 @@ export class People {
     
       @Prop({
         type: Number,
-        required: true,
     }) numetu: number;
 
     @Prop({
