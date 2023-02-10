@@ -303,7 +303,7 @@ export class InternshipService {
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save();
     const newFileName = v4();
-    const newFilePath = join(__dirname, '..', '..', 'src', 'shared','conventions', newFileName + '.pdf');
+    const newFilePath = join(__dirname, '..', '..', 'files', newFileName + '.pdf');
     writeFileSync(newFilePath, pdfBytes);
     const resourceURI = `${config.server.uri}:${config.server.port}/resources/agreements/${newFileName}.pdf`;
     this._internshipsDao.findByStudentIdAndUpdateTracking(id,STATE_SECRETARY_ESTABLISHES_INTERNSHIP_AGREEMENT,resourceURI);
