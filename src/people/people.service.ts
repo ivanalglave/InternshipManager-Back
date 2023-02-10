@@ -24,6 +24,10 @@ export class PeopleService {
     return this._peopleDao.save(people);
   }
 
+  createMany = (people: CreatePeopleDto[]): Promise<PeopleEntity[]> => {
+    return this._peopleDao.saveMany(people);
+  };
+
   update = (
     id: string,
     people: UpdatePeopleDto,

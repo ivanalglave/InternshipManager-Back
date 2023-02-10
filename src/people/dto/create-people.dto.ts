@@ -20,8 +20,7 @@ export class CreatePeopleDto {
   @IsString()
   @IsNotEmpty()
   email: string;
-  
-  @IsNotEmpty()
+ 
+  @IsOptional()
   role: number;
-
 }

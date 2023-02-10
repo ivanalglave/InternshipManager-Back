@@ -27,6 +27,14 @@ export class GroupsService {
   ): Promise<GroupEntity | void> =>
     this._groupsDao.findByIdAndUpdateRole(id, role, personId, action);
 
+  updateManyByRole = (
+    id: string,
+    role: string,
+    peopleIds: string[],
+    action: string,
+  ): Promise<GroupEntity | void> =>
+    this._groupsDao.findByIdAndUpdateManyByRole(id, role, peopleIds, action);
+
   delete(id: string): Promise<GroupEntity | void> {
     return this._groupsDao.findById(id).then((res) => {
       if (res) {

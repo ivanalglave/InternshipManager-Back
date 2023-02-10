@@ -29,7 +29,7 @@ export class PeopleController {
   constructor(private readonly _peopleService: PeopleService) {}
 
 
-  @UseGuards(AuthGuard('jwt'))
+  //@UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(): Promise<PeopleEntity[] | void> {
     return this._peopleService.findAll();
