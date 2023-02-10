@@ -5,6 +5,10 @@ import { InternshipEntity } from './entities/internship.entity';
 import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import { v4 } from 'uuid';
+import { timeStamp } from 'console';
+import { STATE_SECRETARY_ESTABLISHES_INTERNSHIP_AGREEMENT } from 'src/shared/InternshipState';
+import config from 'src/config';
 
 
 
@@ -298,10 +302,11 @@ export class InternshipService {
 
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save();
-    const newFileName = 'convention-' + id;
+    const newFileName = v4();
     const newFilePath = join(__dirname, '..', '..', 'files', newFileName + '.pdf');
     writeFileSync(newFilePath, pdfBytes);
-
+    const resourceURI = `${config.server.uri}:${config.server.port}/resources/agreements/${newFileName}.pdf`;
+    this._internshipsDao.findByStudentIdAndUpdateTracking(id,STATE_SECRETARY_ESTABLISHES_INTERNSHIP_AGREEMENT,resourceURI);
     return null;
   }
 
