@@ -13,6 +13,9 @@ export class PeopleService {
 
   findAll = (): Promise<PeopleEntity[] | void> => this._peopleDao.find();
 
+  findMany = (idList: string[]): Promise<PeopleEntity[] | void> =>
+    this._peopleDao.findManyById(idList);
+
   findOne = (id: string): Promise<PeopleEntity | void> =>
     this._peopleDao.findById(id);
 

@@ -24,7 +24,22 @@ export class PeopleController {
   //@UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(): Promise<PeopleEntity[] | void> {
+    console.log(
+      encodeURIComponent(
+        JSON.stringify([
+          '640703a32ece22f629e3435f',
+          '640705340ca60d0b09ba2b88',
+          '640706a80ca60d0b09ba2cd2',
+        ]),
+      ),
+    );
     return this._peopleService.findAll();
+  }
+
+  @Get('/many/:list')
+  findMany(@Param() params: { list: string }): Promise<PeopleEntity[] | void> {
+    const idList = JSON.parse(params.list);
+    return this._peopleService.findMany(idList);
   }
 
   @UseGuards(AuthGuard('jwt'))

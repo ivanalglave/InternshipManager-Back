@@ -54,6 +54,15 @@ export class PeopleDao {
       });
     });
 
+  findManyById = (idList: string[]): Promise<People[]> =>
+    new Promise((resolve, reject) => {
+      this._peopleModel.find({ _id: { $in: idList } }, {}, {}, (err, value) => {
+        if (err) reject(err.message);
+        if (!value) resolve([]);
+        resolve(value);
+      });
+    });
+
   findById = (id: string): Promise<People | void> =>
     new Promise((resolve, reject) => {
       this._peopleModel.findById(id, (err, value) => {
