@@ -13,5 +13,6 @@ import { Internship, InternshipSchema } from './schemas/internship.schema';
   ],
   controllers: [InternshipsController],
   providers: [InternshipService, InternshipDao, Logger],
+  exports: [InternshipService],
 })
 export class InternshipsModule {}
