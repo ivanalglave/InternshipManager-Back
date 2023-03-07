@@ -13,7 +13,6 @@ import * as Mailgun from 'mailgun-js';
 import config from 'src/config';
 import * as bcrypt from 'bcrypt';
 import { PeopleEntity } from '../entities/people.entity';
-import { CONFLICT } from 'src/shared/HttpError';
 
 @Injectable()
 export class PeopleDao {
@@ -24,7 +23,7 @@ export class PeopleDao {
 */
   constructor(
     @InjectModel(People.name)
-    private readonly _peopleModel: Model<People>,
+    private readonly _peopleModel: Model<People>
   ) {}
 
   login = (email: string, password: string): Promise<People | void> =>
@@ -132,7 +131,7 @@ export class PeopleDao {
 
   findByIdAndRemove = (id: string): Promise<People | void> =>
     new Promise((resolve, reject) => {
-      this._peopleModel.deleteOne({ id: id }, {}, (err) => {
+      this._peopleModel.findByIdAndDelete(id, {}, (err) => {
         if (err) reject(err.message);
         resolve();
       });

@@ -1,0 +1,32 @@
+[1mdiff --git a/src/people/dao/people.dao.ts b/src/people/dao/people.dao.ts[m
+[1mindex bb03a1d..7b093cd 100644[m
+[1m--- a/src/people/dao/people.dao.ts[m
+[1m+++ b/src/people/dao/people.dao.ts[m
+[36m@@ -13,7 +13,6 @@[m [mimport * as Mailgun from 'mailgun-js';[m
+ import config from 'src/config';[m
+ import * as bcrypt from 'bcrypt';[m
+ import { PeopleEntity } from '../entities/people.entity';[m
+[31m-import { CONFLICT } from 'src/shared/HttpError';[m
+ [m
+ @Injectable()[m
+ export class PeopleDao {[m
+[36m@@ -24,7 +23,7 @@[m [mexport class PeopleDao {[m
+ */[m
+   constructor([m
+     @InjectModel(People.name)[m
+[31m-    private readonly _peopleModel: Model<People>,[m
+[32m+[m[32m    private readonly _peopleModel: Model<People>[m
+   ) {}[m
+ [m
+   login = (email: string, password: string): Promise<People | void> =>[m
+[36m@@ -131,8 +130,8 @@[m [mexport class PeopleDao {[m
+     });[m
+ [m
+   findByIdAndRemove = (id: string): Promise<People | void> =>[m
+[31m-    new Promise((resolve, reject) => {[m
+[31m-      this._peopleModel.deleteOne({ id: id }, {}, (err) => {[m
+[32m+[m[32m    new Promise(async (resolve, reject) => {[m
+[32m+[m[32m      this._peopleModel.findByIdAndDelete(id, {}, (err) => {[m
+         if (err) reject(err.message);[m
+         resolve();[m
+       });[m
