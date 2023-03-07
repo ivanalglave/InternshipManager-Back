@@ -6,18 +6,18 @@ services:
     restart: always
     build: .
     ports:
-      - "3002:3002"
+      - "3001:3001"
     environment:
       - DB_URL=mongodb://db_mongo
 
   db:
     image: mongo
     container_name: db_mongo
-    command: mongod --port 27018
+    command: mongod --port 27017
     volumes:
       - mongodata:/data/db
     ports:
-      - "27018:27018"
+      - "27017:27017"
 
 volumes:
   mongodata:

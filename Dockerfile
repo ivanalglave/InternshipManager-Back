@@ -10,13 +10,13 @@ RUN npm run build
 RUN echo '{\n\
   "server": {\n\
     "uri": "localhost",\n\
-    "port": 3002\n\
+    "port": 3001\n\
   },\n\
   "resources": {\n\
     "internshipAgreements": "internship-agreements"\n\
   },\n\
   "mongodb": {\n\
-    "uri": "mongodb://db:27018/internship-manager"\n\
+    "uri": "mongodb://db:27017/internship-manager"\n\
   },\n\
   "mailgun": {\n\
     "apiKey": "5d9beaef19aaa5bb01aa59bd48a12501-f7d687c0-d4d95492",\n\
@@ -27,13 +27,13 @@ RUN echo '{\n\
 RUN echo '{\n\
   "server": {\n\
     "uri": "localhost",\n\
-    "port": 3002\n\
+    "port": 3001\n\
   },\n\
   "resources": {\n\
     "internshipAgreements": "internship-agreements"\n\
   },\n\
   "mongodb": {\n\
-    "uri": "mongodb://db:27018/internship-manager"\n\
+    "uri": "mongodb://db:27017/internship-manager"\n\
   },\n\
   "mailgun": {\n\
     "apiKey": "5d9beaef19aaa5bb01aa59bd48a12501-f7d687c0-d4d95492",\n\
