@@ -7,6 +7,8 @@ This is the **REST API** connecting to the [InternshipManager front end web appl
 
 Built using [node](https://nodejs.org/en/)@v16.10.0 !
 
+## Running the project : first method
+
 ### Setting up NestJS
 
 If you don't already have NestJS as a global dependency, execute the following :
@@ -65,6 +67,10 @@ $ npm run start:prod
 ```
 
 Any other command used to start might have *undefined behaviour* at runtime, as above commands may set environment variables required at runtime.
+
+## Running the project : second method
+
+Follow the steps in readme_docker.txt in "docker" folder. Follow ONLY the "back" part steps.
 
 ## API documentation and endpoints
 
