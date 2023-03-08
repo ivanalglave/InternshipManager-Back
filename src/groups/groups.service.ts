@@ -45,4 +45,8 @@ export class GroupsService {
       }
     });
   }
+
+  deleteStudentFromGroups = (id: string): Promise<GroupEntity | void> =>
+    this._groupsDao.findByStudentIdAndRemove(id);
+  
 }

@@ -161,6 +161,16 @@ export class GroupsDao {
         resolve();
       });
     });
+    
+  findByStudentIdAndRemove = (id: string): Promise<Group | void> =>
+    new Promise((resolve, reject) => {
+      this._groupModel.updateMany({ students: id }, { $pull: { students: id } }, (err) => {
+        if (err) {
+          return reject(err.message);
+        }
+        resolve();
+      });
+    });
 
   findByParentAndRemove = (parent: string): Promise<Group | void> =>
     new Promise((resolve, reject) => {

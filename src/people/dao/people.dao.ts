@@ -14,6 +14,8 @@ import config from 'src/config';
 import * as bcrypt from 'bcrypt';
 import { PeopleEntity } from '../entities/people.entity';
 import { CONFLICT } from 'src/shared/HttpError';
+import { InternshipService } from 'src/internships/internships.service';
+import { GroupsService } from 'src/groups/groups.service';
 
 @Injectable()
 export class PeopleDao {
@@ -25,6 +27,8 @@ export class PeopleDao {
   constructor(
     @InjectModel(People.name)
     private readonly _peopleModel: Model<People>,
+    private _internshipService: InternshipService,
+    private _groupService: GroupsService
   ) {}
 
   login = (email: string, password: string): Promise<People | void> =>
@@ -141,8 +145,10 @@ export class PeopleDao {
 
   findByIdAndRemove = (id: string): Promise<People | void> =>
     new Promise((resolve, reject) => {
-      this._peopleModel.deleteOne({ id: id }, {}, (err) => {
+      this._peopleModel.deleteOne({ _id: id }, {}, (err) => {
         if (err) reject(err.message);
+        this._internshipService.delete(id);
+        this._groupService.deleteStudentFromGroups(id);
         resolve();
       });
     });
